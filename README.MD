@@ -16,7 +16,7 @@ This is a Proof of Concept of the microfrontends architechture implemented with 
 3. Start all the projects using `yarn start` in each project folder;
 4. Open [http://localhost:9000](http://localhost:9000) to see the app running in dev mode.
 
->> If you change Module 1 or Module 2 page contents and do a refresh in Orchestrator page, you will see the page will change with the new modules content.
+> If you change Module 1 or Module 2 page contents and do a refresh in Orchestrator page, you will see the page will change with the new modules content.
 
 ## Next steps
 - [ ] Make a more complex example
