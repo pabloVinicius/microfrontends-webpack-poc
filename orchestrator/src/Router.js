@@ -1,16 +1,41 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import './app.css';
+import { BrowserRouter, Redirect, Route as BaseRoute, Switch } from 'react-router-dom';
+import Layout from './components/Layout';
+import ErrorBoundary from './components/ErrorBoundary';
 
-const Module1 = React.lazy(() => import('module1/Module1'));
-const Module2 = React.lazy(() => import('module2/Module2'));
+const Home = React.lazy(() => import('./pages/Home'));
+const ModuleOne = React.lazy(() => import('./pages/ModuleOne'));
+const ModuleTwo = React.lazy(() => import('./pages/ModuleTwo'));
+const ModuleThree = React.lazy(() => import('./pages/ModuleThree'));
+
+const Route = ({ component: Component, ...restProps }) => {
+  return (
+    <BaseRoute 
+      {...restProps}
+      render={(props) => {
+        console.log('path', props.location?.pathname)
+        return (
+        <ErrorBoundary key={props.location?.pathname}>
+          <Component {...props} />
+        </ErrorBoundary>
+      )}} 
+    />
+  );
+};
 
 const App = () => {
   return (
-    <Switch>
-      <Route path="/module-1" exact component={Module1} />
-      <Route path="/module-2" exact component={Module2} />
-    </Switch>  
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/module-1" exact component={ModuleOne} />
+          <Route path="/module-2" exact component={ModuleTwo} />
+          <Route path="/module-3" exact component={ModuleThree} />
+          <Redirect to="/" />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
